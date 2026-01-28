@@ -62,7 +62,7 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
 
   it('03 - Autenticar Usuário (login)', async () => {
     const resposta = await request(app.getHttpServer())
-      .post('/usuarios/logar')
+      .post('/auth/logar')
       .send({
         usuario: 'teste@usuario.com',
         senha: '12345678',
@@ -75,14 +75,14 @@ describe('Testes dos Módulos Usuário e Auth (e2e)', () => {
   it('04 - Listar todos os Usuários', async () => {
     return await request(app.getHttpServer())
       .get('/usuarios/all')
-      .set('Authorization', `${token}`)
+      .set('Authorization', token)
       .expect(200);
   });
 
   it('05 - Atualizar Usuário', async () => {
     const resposta = await request(app.getHttpServer())
       .put('/usuarios/atualizar')
-      .set('Authorization', `${token}`)
+      .set('Authorization', token)
       .send({
         id: usuarioId,
         nome: 'Teste Usuário Atualizado',
