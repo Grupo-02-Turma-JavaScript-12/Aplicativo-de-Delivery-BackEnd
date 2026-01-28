@@ -12,7 +12,9 @@ export class EstabelecimentoService {
   ) {}
 
   async findAll(): Promise<Estabelecimento[]> {
-    return await this.estabelecimentoRepository.find();
+    return await this.estabelecimentoRepository.find({
+      relations: { pedido: true },
+    });
   }
 
   async findById(id: number): Promise<Estabelecimento> {
@@ -20,7 +22,9 @@ export class EstabelecimentoService {
       where: {
         id,
       },
+      relations: { pedido: true },
     });
+
     if (!estabelecimento) {
       throw new HttpException(
         'Estabelecimento não encontrado!',
@@ -36,6 +40,7 @@ export class EstabelecimentoService {
       where: {
         nome: ILike(`%${nome}%`),
       },
+      relations: { pedido: true },
     });
   }
 
