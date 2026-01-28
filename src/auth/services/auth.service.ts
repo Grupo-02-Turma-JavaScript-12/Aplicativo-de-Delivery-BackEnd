@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Bcrypt } from '../bcrypt/bcrypt';
 import { UsuarioLogin } from '../entities/usuariologin.entity';
-import { UsuarioService } from './../../usuario/services/usuario.service';
+import { UsuarioService } from '../../Usuario/services/usuario.service';
 
 @Injectable()
 export class AuthService {
@@ -37,6 +39,13 @@ export class AuthService {
     const buscaUsuario = await this.usuarioService.findByUsuario(
       usuarioLogin.usuario,
     );
+
+    if (!buscaUsuario) {
+      throw new HttpException(
+        'Usuário não encontrado!',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
 
     return {
       id: buscaUsuario.id,

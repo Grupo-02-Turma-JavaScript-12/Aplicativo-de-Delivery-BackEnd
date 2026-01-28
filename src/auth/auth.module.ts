@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { UsuarioModule } from '../Usuario/usuario.module';
 import { Bcrypt } from './bcrypt/bcrypt';
 import { jwtConstants } from './constants/constants';
 import { AuthController } from './controllers/auth.controller';
