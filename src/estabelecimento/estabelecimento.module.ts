@@ -8,5 +8,6 @@ import { EstabelecimentoService } from './services/estabelecimento.service';
   imports: [TypeOrmModule.forFeature([Estabelecimento])],
   controllers: [EstabelecimentoController],
   providers: [EstabelecimentoService],
+  exports: [EstabelecimentoService],
 })
 export class EstabelecimentoModule {}

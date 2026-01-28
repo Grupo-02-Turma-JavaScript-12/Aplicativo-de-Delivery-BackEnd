@@ -1,13 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Pedido } from '../entities/pedido.entity';
 import { DeleteResult, ILike, MoreThan, Repository } from 'typeorm';
+import { EstabelecimentoService } from '../../estabelecimento/services/estabelecimento.service';
+import { Pedido } from '../entities/pedido.entity';
 
 @Injectable()
 export class PedidoService {
   constructor(
     @InjectRepository(Pedido)
     private pedidoRepository: Repository<Pedido>,
+    private estabelecimentoService: EstabelecimentoService,
   ) {}
 
   async findAll(): Promise<Pedido[]> {
@@ -79,11 +81,13 @@ export class PedidoService {
   }
 
   async create(pedido: Pedido): Promise<Pedido> {
+    await this.estabelecimentoService.findById(pedido.estabelecimento.id);
     return await this.pedidoRepository.save(pedido);
   }
 
   async update(pedido: Pedido): Promise<Pedido> {
     await this.findById(pedido.id);
+    await this.estabelecimentoService.findById(pedido.estabelecimento.id);
     return await this.pedidoRepository.save(pedido);
   }
 

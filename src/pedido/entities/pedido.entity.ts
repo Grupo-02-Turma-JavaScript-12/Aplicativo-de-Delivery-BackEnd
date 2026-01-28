@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import {
   Column,
@@ -8,7 +9,6 @@ import {
 } from 'typeorm';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'tb_pedidos' })
 export class Pedido {
@@ -36,6 +36,7 @@ export class Pedido {
   @ApiProperty({ type: () => Usuario })
   usuario: Usuario;
 
+  @ApiProperty({ type: () => Estabelecimento })
   @ManyToOne(
     () => Estabelecimento,
     (estabelecimento) => estabelecimento.pedido,
@@ -43,6 +44,5 @@ export class Pedido {
       onDelete: 'CASCADE',
     },
   )
-  @ApiProperty({ type: () => Estabelecimento })
   estabelecimento: Estabelecimento;
 }
