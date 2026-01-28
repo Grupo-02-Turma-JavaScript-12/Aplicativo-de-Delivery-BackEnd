@@ -10,9 +10,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { UsuarioService } from '../entities/services/usuario.service';
-import { Usuario } from '../entities/usuario.entity';
 import { DeleteResult } from 'typeorm';
+import { Usuario } from '../entities/usuario.entity';
+import { UsuarioService } from '../services/usuario.service';
 
 @Controller()
 export class UsuarioController {
