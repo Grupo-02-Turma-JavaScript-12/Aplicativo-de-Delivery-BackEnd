@@ -17,7 +17,7 @@ async function bootstrap() {
     .setTitle('NutriGo API')
     .setDescription('Saúde que chega até você')
     .setContact(
-      'Grupo 2',
+      'NutriGo',
       'https://github.com/Grupo-02-Turma-JavaScript-12/Aplicativo-de-Delivery-BackEnd',
       'mcarvalho093@gmail.com',
     )
