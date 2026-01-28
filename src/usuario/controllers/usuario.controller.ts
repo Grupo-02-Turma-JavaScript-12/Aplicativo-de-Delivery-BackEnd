@@ -14,11 +14,11 @@ import { DeleteResult } from 'typeorm';
 import { Usuario } from '../entities/usuario.entity';
 import { UsuarioService } from '../services/usuario.service';
 
-@Controller()
+@Controller('/usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
-  @Get('usuarios')
+  @Get('usuario/:usuario')
   @HttpCode(HttpStatus.OK)
   findByUsuario(@Param('usuario') usuario: string): Promise<Usuario | null> {
     return this.usuarioService.findByUsuario(usuario);
