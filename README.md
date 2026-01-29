@@ -47,8 +47,6 @@ Serviço responsável por gerenciar as operações relacionadas aos pedidos.
 - **update(pedido)** → Atualiza um pedido existente (com validação prévia).  
 - **delete(id)** → Remove um pedido pelo ID.  
   - Retorna erro `404 - Pedido não encontrado` caso não exista.  
-- **findByStatus(status)** → Pesquisa pedidos pelo status, com suporte a filtros (`ILike`).  
-  - Inclui relações com usuário e estabelecimento.  
 
 ---
 
@@ -189,31 +187,38 @@ Serviço responsável por gerenciar as operações relacionadas aos estabelecime
   </tr>
 </table>
 
-## Funcionalidades no Swagger
+## Testes realizados no Insomnia
+```
+Testes realizados na Autenticação de Usuário
+```
+#### Login Usuário
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/bf094333-793a-478c-84ae-493775b96c14" />
 
+#### Consulta de todos os usuarios com o Token de Usuário
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a4df38b1-1af0-47d1-8111-480f6be83c85" />
+
+---
 ```
 Testes realizados na Entidade Usuário
 ```
 
+
 #### Consultar todos usuários
 
-<img width="1919" height="982" alt="image" src="https://github.com/user-attachments/assets/c5ad1834-4e58-46c3-b893-06f5b10c3371" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/27a01aae-42a6-40c9-a11a-5ff6cb070f36" />
 
 #### Consultar Usuários por ID
 
-<img width="1919" height="985" alt="image" src="https://github.com/user-attachments/assets/d522c30b-cb8c-4019-9201-c1b3d3d33ad3" />
-
-#### Cadastrar Usuário
-
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/65b08df3-3c18-490f-9417-3db453865702" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/074adb28-f7cd-4cad-9608-53f039a0118e" />
 
 #### Atualizar Usuário
 
-<img width="1919" height="986" alt="image" src="https://github.com/user-attachments/assets/ddfb7a4c-4596-46de-85b5-f282f8944b98" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/93feb8c3-d875-4522-80b5-bb7c911ebb86" />
+
 
 #### Deletar Usuário
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b54b0c99-50e3-4af9-a728-c96116a9e44d" />
 
-<img width="1919" height="987" alt="image" src="https://github.com/user-attachments/assets/47541c60-5693-41fb-bd7a-5f32468f3993" /><br>
 
 ---
 
@@ -221,29 +226,28 @@ Testes realizados na Entidade Usuário
 Testes realizados na Entidade Pedidos
 ```
 
-#### Consultar Caronas
+#### Cadastrar Pedidos
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9788524b-be55-4c82-92f4-e6812e7cb843" />
 
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/b7fcaacf-d226-45d6-bfc4-84a6df709662" />
 
-#### Consultar Caronas por ID
+#### Deletar Pedidos
 
-<img width="1919" height="981" alt="image" src="https://github.com/user-attachments/assets/c9e3f856-f9cf-45ac-9b93-f963cefd4c35" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/816fe3a5-f153-4ed3-8136-91c528ce2bdd" />
 
-#### Consultar caronas por Destino
 
-<img width="1919" height="983" alt="image" src="https://github.com/user-attachments/assets/5ea2ce32-e58c-409a-a683-184455ecc953" />
+#### Consultar todos os Pedidos
 
-#### Calcular Tempo de Viagem
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/968851c1-3fe2-4cae-8ecb-ad4fd6f14da5" />
 
-<img width="1919" height="980" alt="image" src="https://github.com/user-attachments/assets/82209434-e2ca-414e-ae1a-b59e5bd1a56e" />
 
-#### Cadastrar Carona
+#### Consultar Pedidos por Id
 
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/1eb92b47-6d3d-4c27-a41b-31bf75db724c" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/20758a39-8a7b-483a-9f1f-5cd73947510c" />
 
-#### Deletar Carona
 
-<img width="1919" height="981" alt="image" src="https://github.com/user-attachments/assets/ee51e321-cfd7-4d93-aaf1-fef0f0b9fcd5" /><br>
+#### Atualizar dados de Pedido
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f49ae3e9-9e52-41c9-b294-2eb8af07f0d3" />
 
 ---
 
@@ -251,25 +255,30 @@ Testes realizados na Entidade Pedidos
 Testes realizados na Entidade Estabelecimento
 ```
 
-#### Consultar todas as Reservas
+#### Cadastrar estabelecimento
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7390f532-9130-44fe-8903-2d97fa900cf9" />
 
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/644293bd-de79-4ff4-9815-aa8b6cdf4115" />
 
-#### Cadastrar Reservas
 
-<img width="1919" height="985" alt="image" src="https://github.com/user-attachments/assets/274a90b5-d21b-4a76-8916-0866b4f8ea34" />
+#### Buscar todos estabelecimentos
 
-#### Consultar Reservas por ID
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/963c381e-71e3-43d8-a2c0-bebc024905a2" />
 
-<img width="1919" height="983" alt="image" src="https://github.com/user-attachments/assets/7a16f489-a1a5-441c-b87c-9ec470d3be1d" />
 
-#### Atualizar Reservas
+#### Buscar Estabelecimento por Id
 
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/e836e9d1-6440-4a55-935f-41c92d01c7e6" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/e02b0dc7-11f8-4dda-9312-e2e3886f81a1" />
 
-#### Deletar Reservas
 
-<img width="1919" height="984" alt="image" src="https://github.com/user-attachments/assets/9337d907-9353-4cdf-abd6-948239c0a47d" />
+#### Atualizar dados dos Estabelecimentos
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/cce91127-0e2d-4e62-b4df-0ed88b89a8d4" />
+
+
+#### Deletar cadastro do Estabelecimento
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dac9d1ef-82dd-4f63-8b4d-1242f1133253" />
+
 
 ## Instalação do Projeto
 
