@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
+import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
+import { ItemPedido } from '../../itemPedido/entities/itemPedido.entity';
 
 @Entity({ name: 'tb_produto' })
 export class Produto {
@@ -60,9 +62,17 @@ export class Produto {
   @ApiProperty()
   categoria: Categoria;
 
+  @IsNotEmpty()
+  @ManyToOne(
+    () => Estabelecimento,
+    (estabelecimento) => estabelecimento.produto,
+  )
+  @ApiProperty({ type: () => Estabelecimento })
+  estabelecimento: Estabelecimento;
+
   // fazer relacionamento com categoria
 
-  @OneToMany(() => Pedido, (pedido) => pedido.estabelecimento)
-  @ApiProperty()
-  pedido: Pedido[];
+  @ApiProperty({ type: () => ItemPedido })
+  @OneToMany(() => ItemPedido, (item) => item.produto)
+  itens: ItemPedido[];
 }

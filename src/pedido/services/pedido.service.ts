@@ -17,6 +17,7 @@ export class PedidoService {
       relations: {
         usuario: true,
         estabelecimento: true,
+        itensPedido: true,
       },
       order: {
         data_pedido: 'DESC',
@@ -33,8 +34,9 @@ export class PedidoService {
         data_pedido: MoreThan(dataLimite),
       },
       relations: {
-        estabelecimento: true,
         usuario: true,
+        estabelecimento: true,
+        itensPedido: true,
       },
       order: {
         data_pedido: 'DESC',
@@ -73,7 +75,11 @@ export class PedidoService {
   async findById(id: number): Promise<Pedido> {
     const pedido = await this.pedidoRepository.findOne({
       where: { id: id },
-      relations: { usuario: true, estabelecimento: true },
+      relations: {
+        usuario: true,
+        estabelecimento: true,
+        itensPedido: true,
+      },
     });
     if (!pedido)
       throw new HttpException('Pedido não encontrado', HttpStatus.NOT_FOUND);
@@ -99,7 +105,11 @@ export class PedidoService {
   async findByStatus(status: string): Promise<Pedido[]> {
     return await this.pedidoRepository.find({
       where: { status: ILike(`%${status}%`) },
-      relations: { usuario: true, estabelecimento: true },
+      relations: {
+        usuario: true,
+        estabelecimento: true,
+        itensPedido: true,
+      },
     });
   }
 }

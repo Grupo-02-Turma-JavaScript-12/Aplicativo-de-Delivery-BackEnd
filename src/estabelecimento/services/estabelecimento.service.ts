@@ -13,7 +13,7 @@ export class EstabelecimentoService {
 
   async findAll(): Promise<Estabelecimento[]> {
     return await this.estabelecimentoRepository.find({
-      relations: { pedido: true },
+      relations: { pedido: true, produto: true },
     });
   }
 
@@ -22,7 +22,7 @@ export class EstabelecimentoService {
       where: {
         id,
       },
-      relations: { pedido: true },
+      relations: { pedido: true, produto: true },
     });
 
     if (!estabelecimento) {
@@ -40,7 +40,7 @@ export class EstabelecimentoService {
       where: {
         nome: ILike(`%${nome}%`),
       },
-      relations: { pedido: true },
+      relations: { pedido: true, produto: true },
     });
   }
 
