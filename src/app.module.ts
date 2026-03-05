@@ -16,7 +16,7 @@ import { itemPedidoModule } from './itemPedido/itemPedido.module';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
-      useClass: DevService,
+      useClass: ProdService,
       imports: [ConfigModule],
     }),
     UsuarioModule,
