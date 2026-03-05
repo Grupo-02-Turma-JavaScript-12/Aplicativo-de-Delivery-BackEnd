@@ -4,8 +4,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -53,12 +51,13 @@ export class Pedido {
   @ApiProperty({ type: () => [ItemPedido] })
   @OneToMany(() => ItemPedido, (itensPedido) => itensPedido.pedido)
   itensPedido: ItemPedido[];
-  @ManyToMany(() => Produto, (produto) => produto.pedidos)
-  @ApiProperty()
-  @JoinTable({
-    name: 'tb_pedidos_produtos',
-    joinColumn: { name: 'pedido_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'produto_id', referencedColumnName: 'id' },
-  })
-  produtos: Produto[];
+
+  // @ManyToMany(() => Produto, (produto) => produto.pedido)
+  // @ApiProperty()
+  // @JoinTable({
+  //   name: 'tb_pedidos_produtos',
+  //   joinColumn: { name: 'pedido_id', referencedColumnName: 'id' },
+  //   inverseJoinColumn: { name: 'produto_id', referencedColumnName: 'id' },
+  // })
+  // produtos: Produto[];
 }

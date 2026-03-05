@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Produto } from '../../produtos/entities/produto.entity';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 @Entity({ name: 'tb_estabelecimentos' })
 export class Estabelecimento {
@@ -47,4 +48,10 @@ export class Estabelecimento {
   @OneToMany(() => Pedido, (pedido) => pedido.estabelecimento)
   @ApiProperty({ type: () => [Pedido] })
   pedido: Pedido[];
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.estabelecimento, {
+    onDelete: 'CASCADE',
+  })
+  @ApiProperty({ type: () => [Usuario] })
+  usuario: Usuario;
 }

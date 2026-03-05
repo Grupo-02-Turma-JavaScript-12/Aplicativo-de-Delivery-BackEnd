@@ -3,8 +3,8 @@ import { IsNotEmpty } from 'class-validator';
 import {
   Column,
   Entity,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Categoria } from '../../categoria/entities/categoria.entity';
