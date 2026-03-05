@@ -11,4 +11,4 @@ import { CategoriaController } from './controllers/categoria.controller';
   controllers: [CategoriaController],
   exports: [CategoriaService],
 })
-export class PedidoModule {}
+export class CategoriaModule {}
