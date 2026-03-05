@@ -3,12 +3,13 @@ import { IsNotEmpty } from 'class-validator';
 import {
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
+import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
 
 @Entity({ name: 'tb_produto' })
 export class Produto {
@@ -49,7 +50,7 @@ export class Produto {
   @IsNotEmpty()
   @Column({ length: 30, nullable: false })
   @ApiProperty()
-  carboritratos: string;
+  carboidratos: string;
 
   @IsNotEmpty()
   @Column({ length: 30, nullable: false })
@@ -60,9 +61,14 @@ export class Produto {
   @ApiProperty()
   categoria: Categoria;
 
-  // fazer relacionamento com categoria
+  @ManyToOne(
+    () => Estabelecimento,
+    (estabelecimento) => estabelecimento.produto,
+  )
+  @ApiProperty({ type: () => Estabelecimento })
+  estabelecimento: Estabelecimento;
 
-  @OneToMany(() => Pedido, (pedido) => pedido.estabelecimento)
+  @ManyToMany(() => Pedido, (pedido) => pedido.produtos)
   @ApiProperty()
-  pedido: Pedido[];
+  pedidos: Pedido[];
 }

@@ -4,11 +4,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
+import { Produto } from '../../produtos/entities/produto.entity';
 
 @Entity({ name: 'tb_pedidos' })
 export class Pedido {
@@ -45,4 +48,13 @@ export class Pedido {
     },
   )
   estabelecimento: Estabelecimento;
+
+  @ManyToMany(() => Produto, (produto) => produto.pedidos)
+  @ApiProperty()
+  @JoinTable({
+    name: 'tb_pedidos_produtos',
+    joinColumn: { name: 'pedido_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'produto_id', referencedColumnName: 'id' },
+  })
+  produtos: Produto[];
 }

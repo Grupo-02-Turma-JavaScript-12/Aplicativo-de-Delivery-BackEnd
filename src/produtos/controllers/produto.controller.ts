@@ -10,12 +10,17 @@ import {
   Post,
   Put,
   UseGuards,
+  Req,
 } from '@nestjs/common';
-
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../../auth/guard/roles.guard';
+import { Roles } from '../../auth/decorators/roles.decorator';
+import { TipoUsuario } from '../../usuario/entities/usuario.entity';
 import { ProdutoService } from '../services/produto.service';
 import { Produto } from '../entities/produto.entity';
+import { UsuarioToken } from '../../auth/strategy/usuario-token';
 
 @ApiTags('Produto')
 @Controller('/produtos')
@@ -43,21 +48,31 @@ export class ProdutoController {
 
   @Post('/cadastrar')
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
   create(@Body() produto: Produto): Promise<Produto> {
     return this.produtoService.create(produto);
   }
 
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
-  update(@Body() produto: Produto): Promise<Produto> {
-    return this.produtoService.update(produto);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
+  update(
+    @Body() produto: Produto,
+    @Req() req: Request & { user: UsuarioToken },
+  ): Promise<Produto> {
+    return this.produtoService.update(produto, req.user);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.produtoService.delete(id);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
+  delete(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: Request & { user: UsuarioToken },
+  ) {
+    return this.produtoService.delete(id, req.user);
   }
 }
