@@ -10,7 +10,6 @@ async function bootstrap() {
   process.env.TZ = '-03:00';
 
   app.useGlobalPipes(new ValidationPipe());
-
   app.enableCors();
 
   const config = new DocumentBuilder()
@@ -28,6 +27,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/swagger', app, document);
 
-  await app.listen(process.env.PORT ?? 4000);
+  const port = Number(process.env.PORT) || 4000;
+
+  await app.listen(port, '0.0.0.0');
+
+  console.log(`🚀 Aplicação rodando na porta ${port}`);
 }
 bootstrap();
