@@ -16,14 +16,25 @@ import { Usuario } from '../entities/usuario.entity';
 import { UsuarioService } from '../services/usuario.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
-import { CreateUsuarioDto } from '../dto/create-usuario.dto';
-import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 
 @ApiTags('Usuário')
 @Controller('/usuarios')
 @ApiBearerAuth()
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
+
+  @Post('/cadastrar')
+  @HttpCode(HttpStatus.CREATED)
+  async create(@Body() usuario: Usuario): Promise<Usuario> {
+    return this.usuarioService.create(usuario);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  @HttpCode(HttpStatus.OK)
+  findAll(): Promise<Usuario[]> {
+    return this.usuarioService.findAll();
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('usuario/:usuario')
@@ -33,34 +44,19 @@ export class UsuarioController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/all')
-  @HttpCode(HttpStatus.OK)
-  findAll(): Promise<Usuario[]> {
-    return this.usuarioService.findAll();
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Usuario> {
     return this.usuarioService.findById(id);
   }
 
-  @Post('/cadastrar')
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() usuarioDto: CreateUsuarioDto): Promise<Usuario> {
-    return this.usuarioService.create(usuarioDto as Usuario);
-  }
-
   @UseGuards(JwtAuthGuard)
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)
   async update(
-    @Body() usuarioDto: UpdateUsuarioDto,
+    @Body() usuario: Usuario,
   ): Promise<{ mensagem: string; usuario: Usuario }> {
-    const usuarioAtualizado = await this.usuarioService.update(
-      usuarioDto as Usuario,
-    );
+    const usuarioAtualizado = await this.usuarioService.update(usuario);
 
     return {
       mensagem: 'usuario atualizado',
