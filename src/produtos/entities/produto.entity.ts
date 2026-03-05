@@ -7,7 +7,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
 import { ItemPedido } from '../../itemPedido/entities/itemPedido.entity';
@@ -59,10 +58,9 @@ export class Produto {
   gorduras: string;
 
   @ManyToOne(() => Categoria, (categoria) => categoria.produto)
-  @ApiProperty()
+  @ApiProperty({ type: () => Categoria })
   categoria: Categoria;
 
-  @IsNotEmpty()
   @ManyToOne(
     () => Estabelecimento,
     (estabelecimento) => estabelecimento.produto,
@@ -70,9 +68,7 @@ export class Produto {
   @ApiProperty({ type: () => Estabelecimento })
   estabelecimento: Estabelecimento;
 
-  // fazer relacionamento com categoria
-
-  @ApiProperty({ type: () => ItemPedido })
   @OneToMany(() => ItemPedido, (item) => item.produto)
+  @ApiProperty({ type: () => [ItemPedido] })
   itens: ItemPedido[];
 }

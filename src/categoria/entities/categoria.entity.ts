@@ -16,5 +16,5 @@ export class Categoria {
 
   @OneToMany(() => Produto, (produto) => produto.categoria)
   @ApiProperty({ type: () => [Produto] })
-  produto: Produto;
+  produto: Produto[];
 }

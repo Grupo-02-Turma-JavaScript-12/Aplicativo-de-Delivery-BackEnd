@@ -35,10 +35,10 @@ export class Estabelecimento {
   taxa_entrega: number;
 
   @OneToMany(() => Produto, (produto) => produto.estabelecimento)
-  @ApiProperty({ type: () => Produto })
+  @ApiProperty({ type: () => [Produto] })
   produto: Produto[];
 
   @OneToMany(() => Pedido, (pedido) => pedido.estabelecimento)
-  @ApiProperty({ type: () => Pedido })
+  @ApiProperty({ type: () => [Pedido] })
   pedido: Pedido[];
 }

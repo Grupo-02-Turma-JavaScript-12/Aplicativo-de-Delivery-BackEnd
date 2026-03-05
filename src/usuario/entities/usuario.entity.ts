@@ -31,6 +31,6 @@ export class Usuario {
   foto: string;
 
   @OneToMany(() => Pedido, (pedido) => pedido.usuario)
-  @ApiProperty()
+  @ApiProperty({ type: () => [Pedido] })
   pedido: Pedido[];
 }
