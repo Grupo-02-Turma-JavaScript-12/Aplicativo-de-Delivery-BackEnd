@@ -3,8 +3,8 @@ import { IsNotEmpty } from 'class-validator';
 import {
   Column,
   Entity,
+  ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Categoria } from '../../categoria/entities/categoria.entity';
@@ -50,7 +50,7 @@ export class Produto {
   @IsNotEmpty()
   @Column({ length: 30, nullable: false })
   @ApiProperty()
-  carboritratos: string;
+  carboidratos: string;
 
   @IsNotEmpty()
   @Column({ length: 30, nullable: false })

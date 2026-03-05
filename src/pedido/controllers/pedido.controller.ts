@@ -15,6 +15,8 @@ import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../entities/pedido.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { CreatePedidoDto } from '../dto/create-pedido.dto';
+import { UpdatePedidoDto } from '../dto/update-pedido.dto';
 
 @ApiTags('Pedido')
 @UseGuards(JwtAuthGuard)
@@ -57,7 +59,7 @@ export class PedidoController {
   @UseGuards(JwtAuthGuard)
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)
-  async update(@Body() pedido: Pedido): Promise<Pedido> {
-    return this.pedidoService.update(pedido);
+  async update(@Body() pedidoDto: UpdatePedidoDto): Promise<Pedido> {
+    return this.pedidoService.update(pedidoDto as unknown as Pedido);
   }
 }

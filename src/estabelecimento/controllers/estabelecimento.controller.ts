@@ -10,11 +10,16 @@ import {
   Post,
   Put,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { Estabelecimento } from '../entities/estabelecimento.entity';
 import { EstabelecimentoService } from '../services/estabelecimento.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
+import { RolesGuard } from '../../auth/guard/roles.guard';
+import { Roles } from '../../auth/decorators/roles.decorator';
+import { TipoUsuario } from '../../usuario/entities/usuario.entity';
+import { UsuarioToken } from '../../auth/strategy/usuario-token';
 
 @ApiTags('Estabelecimento')
 @Controller('/estabelecimentos')
@@ -44,22 +49,34 @@ export class EstabelecimentoController {
 
   @Post('/cadastrar')
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JwtAuthGuard)
-  create(@Body() estabelecimento: Estabelecimento): Promise<Estabelecimento> {
-    return this.estabelecimentoService.create(estabelecimento);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
+  create(
+    @Body() estabelecimento: Estabelecimento,
+    @Req() req: Request & { user: UsuarioToken },
+  ): Promise<Estabelecimento> {
+    return this.estabelecimentoService.create(estabelecimento, req.user);
   }
 
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
-  update(@Body() estabelecimento: Estabelecimento): Promise<Estabelecimento> {
-    return this.estabelecimentoService.update(estabelecimento);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
+  update(
+    @Body() estabelecimento: Estabelecimento,
+    @Req() req: Request & { user: UsuarioToken },
+  ): Promise<Estabelecimento> {
+    return this.estabelecimentoService.update(estabelecimento, req.user);
   }
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JwtAuthGuard)
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.estabelecimentoService.delete(id);
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(TipoUsuario.ADM, TipoUsuario.ESTABELECIMENTO)
+  delete(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: Request & { user: UsuarioToken },
+  ) {
+    return this.estabelecimentoService.delete(id, req.user);
   }
 }
