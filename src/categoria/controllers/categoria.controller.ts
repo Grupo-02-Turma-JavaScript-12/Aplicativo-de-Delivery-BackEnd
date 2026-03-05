@@ -17,7 +17,6 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { Categoria } from '../entities/categoria.entity';
 
 @ApiTags('categoria')
-@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @Controller('/categoria')
 export class CategoriaController {
