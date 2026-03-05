@@ -10,12 +10,13 @@ import { DevService } from './data/services/dev.service';
 import { ProdutoModule } from './produtos/produto.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { itemPedidoModule } from './itemPedido/itemPedido.module';
+import { ProdService } from './data/services/prod.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
-      useClass: DevService,
+      useClass: ProdService,
       imports: [ConfigModule],
     }),
     UsuarioModule,
