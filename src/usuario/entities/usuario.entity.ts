@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  MinLength,
+} from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
@@ -37,6 +43,8 @@ export class Usuario {
   @ApiProperty()
   foto: string;
 
+  @IsOptional()
+  @IsEnum({ TipoUsuario })
   @Column({
     type: 'enum',
     enum: TipoUsuario,
