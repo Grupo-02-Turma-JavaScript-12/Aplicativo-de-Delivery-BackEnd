@@ -44,7 +44,7 @@ export class Usuario {
   foto: string;
 
   @IsOptional()
-  @IsEnum({ TipoUsuario })
+  @IsEnum(TipoUsuario)
   @Column({
     type: 'enum',
     enum: TipoUsuario,
