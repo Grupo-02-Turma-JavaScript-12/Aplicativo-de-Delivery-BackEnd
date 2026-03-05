@@ -25,27 +25,25 @@ export class ProdutoController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findAll(): Promise<Produto[]> {
     return this.produtoService.findAll();
   }
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Produto> {
     return this.produtoService.findById(id);
   }
 
   @Get('/nome/:nome')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findByName(@Param('nome') nome: string): Promise<Produto[]> {
     return this.produtoService.findByName(nome);
   }
 
   @Post('/cadastrar')
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(JwtAuthGuard)
   create(@Body() produto: Produto): Promise<Produto> {
     return this.produtoService.create(produto);
   }

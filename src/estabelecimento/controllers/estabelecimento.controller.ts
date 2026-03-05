@@ -26,27 +26,25 @@ export class EstabelecimentoController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findAll(): Promise<Estabelecimento[]> {
     return this.estabelecimentoService.findAll();
   }
 
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Estabelecimento> {
     return this.estabelecimentoService.findById(id);
   }
 
   @Get('/nome/:nome')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   findByName(@Param('nome') nome: string): Promise<Estabelecimento[]> {
     return this.estabelecimentoService.findByName(nome);
   }
 
   @Post('/cadastrar')
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(JwtAuthGuard)
   create(@Body() estabelecimento: Estabelecimento): Promise<Estabelecimento> {
     return this.estabelecimentoService.create(estabelecimento);
   }
@@ -60,6 +58,7 @@ export class EstabelecimentoController {
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(JwtAuthGuard)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.estabelecimentoService.delete(id);
   }
