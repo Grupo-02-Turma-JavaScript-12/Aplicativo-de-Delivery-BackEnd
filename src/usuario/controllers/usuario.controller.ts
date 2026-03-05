@@ -25,6 +25,19 @@ import { UpdateUsuarioDto } from '../dto/update-usuario.dto';
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
+  @Post('/cadastrar')
+  @HttpCode(HttpStatus.CREATED)
+  async create(@Body() usuario: Usuario): Promise<Usuario> {
+    return this.usuarioService.create(usuario);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  @HttpCode(HttpStatus.OK)
+  findAll(): Promise<Usuario[]> {
+    return this.usuarioService.findAll();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('usuario/:usuario')
   @HttpCode(HttpStatus.OK)
@@ -33,23 +46,10 @@ export class UsuarioController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/all')
-  @HttpCode(HttpStatus.OK)
-  findAll(): Promise<Usuario[]> {
-    return this.usuarioService.findAll();
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   findById(@Param('id', ParseIntPipe) id: number): Promise<Usuario> {
     return this.usuarioService.findById(id);
-  }
-
-  @Post('/cadastrar')
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() usuarioDto: CreateUsuarioDto): Promise<Usuario> {
-    return this.usuarioService.create(usuarioDto as Usuario);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -7,6 +7,9 @@ import { ProdService } from './data/services/prod.service';
 import { EstabelecimentoModule } from './estabelecimento/estabelecimento.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { UsuarioModule } from './usuario/usuario.module';
+// import { DevService } from './data/services/dev.service';
+import { ProdutoModule } from './produtos/produto.module';
+import { CategoriaModule } from './categoria/categoria.module';
 
 @Module({
   imports: [
@@ -19,6 +22,8 @@ import { UsuarioModule } from './usuario/usuario.module';
     PedidoModule,
     EstabelecimentoModule,
     AuthModule,
+    ProdutoModule,
+    CategoriaModule,
   ],
   controllers: [AppController],
   providers: [],
