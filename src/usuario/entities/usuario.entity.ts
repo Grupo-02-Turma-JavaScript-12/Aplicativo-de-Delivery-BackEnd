@@ -54,7 +54,7 @@ export class Usuario {
   tipo: TipoUsuario;
 
   @OneToMany(() => Pedido, (pedido) => pedido.usuario)
-  @ApiProperty()
+  @ApiProperty({ type: () => [Pedido] })
   pedido: Pedido[];
 
   @OneToMany(

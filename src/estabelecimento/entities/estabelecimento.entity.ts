@@ -8,7 +8,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pedido } from '../../pedido/entities/pedido.entity';
-import { Usuario } from '../../usuario/entities/usuario.entity';
 import { Produto } from '../../produtos/entities/produto.entity';
 
 @Entity({ name: 'tb_estabelecimentos' })
@@ -22,27 +21,30 @@ export class Estabelecimento {
   @ApiProperty()
   nome: string;
 
-  @IsNotEmpty()
   @Column({ length: 100, nullable: false })
   @ApiProperty()
   categoria: string;
+
+  @IsNotEmpty()
+  @Column({ length: 255, nullable: false })
+  @ApiProperty()
+  foto_estabelecimento: string;
+
+  @IsNotEmpty()
+  @Column({ length: 255, nullable: false })
+  @ApiProperty()
+  endereco: string;
 
   @IsNotEmpty()
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   @ApiProperty()
   taxa_entrega: number;
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.estabelecimento, {
-    onDelete: 'CASCADE',
-  })
-  @ApiProperty({ type: () => Usuario })
-  usuario: Usuario;
-
   @OneToMany(() => Produto, (produto) => produto.estabelecimento)
-  @ApiProperty()
+  @ApiProperty({ type: () => [Produto] })
   produto: Produto[];
 
   @OneToMany(() => Pedido, (pedido) => pedido.estabelecimento)
-  @ApiProperty()
+  @ApiProperty({ type: () => [Pedido] })
   pedido: Pedido[];
 }

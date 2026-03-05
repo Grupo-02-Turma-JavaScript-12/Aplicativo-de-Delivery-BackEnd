@@ -34,10 +34,16 @@ export class CategoriaService {
     // Adicionar verificação de produto id
     return await this.categoriaRepository.save(categoria);
   }
-  // estou aqui--------------------------------------------------------
+
   async update(categoria: Categoria): Promise<Categoria> {
     await this.findById(categoria.id);
-    await this.produtoService.findById(categoria.produto.id);
+
+    if (categoria.produto && categoria.produto.length > 0) {
+      for (const produto of categoria.produto) {
+        await this.produtoService.findById(produto.id);
+      }
+    }
+
     return await this.categoriaRepository.save(categoria);
   }
 

@@ -7,22 +7,18 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
-import { Produto } from '../../produtos/entities/produto.entity';
+import { ItemPedido } from '../../itemPedido/entities/itemPedido.entity';
 
 @Entity({ name: 'tb_pedidos' })
 export class Pedido {
   @PrimaryGeneratedColumn()
   @ApiProperty()
   id: number;
-
-  @IsNotEmpty()
-  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
-  @ApiProperty()
-  valor_total: number;
 
   @IsNotEmpty()
   @Column({ length: 30, nullable: false })
@@ -32,6 +28,11 @@ export class Pedido {
   @CreateDateColumn()
   @ApiProperty()
   data_pedido: Date;
+
+  @IsNotEmpty()
+  @Column({ type: 'decimal', precision: 10, scale: 2, nullable: false })
+  @ApiProperty()
+  valor_total: number;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.pedido, {
     onDelete: 'CASCADE',
@@ -49,6 +50,9 @@ export class Pedido {
   )
   estabelecimento: Estabelecimento;
 
+  @ApiProperty({ type: () => [ItemPedido] })
+  @OneToMany(() => ItemPedido, (itensPedido) => itensPedido.pedido)
+  itensPedido: ItemPedido[];
   @ManyToMany(() => Produto, (produto) => produto.pedidos)
   @ApiProperty()
   @JoinTable({

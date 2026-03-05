@@ -7,9 +7,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Pedido } from '../../pedido/entities/pedido.entity';
 import { Categoria } from '../../categoria/entities/categoria.entity';
 import { Estabelecimento } from '../../estabelecimento/entities/estabelecimento.entity';
+import { ItemPedido } from '../../itemPedido/entities/itemPedido.entity';
 
 @Entity({ name: 'tb_produto' })
 export class Produto {
@@ -58,7 +58,7 @@ export class Produto {
   gorduras: string;
 
   @ManyToOne(() => Categoria, (categoria) => categoria.produto)
-  @ApiProperty()
+  @ApiProperty({ type: () => Categoria })
   categoria: Categoria;
 
   @ManyToOne(
@@ -68,7 +68,7 @@ export class Produto {
   @ApiProperty({ type: () => Estabelecimento })
   estabelecimento: Estabelecimento;
 
-  @ManyToMany(() => Pedido, (pedido) => pedido.produtos)
-  @ApiProperty()
-  pedidos: Pedido[];
+  @OneToMany(() => ItemPedido, (item) => item.produto)
+  @ApiProperty({ type: () => [ItemPedido] })
+  itens: ItemPedido[];
 }
