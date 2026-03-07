@@ -18,6 +18,7 @@ export class UsuarioService {
       },
       relations: {
         pedido: true,
+        estabelecimento: true,
       },
     });
   }
@@ -26,6 +27,7 @@ export class UsuarioService {
     return await this.usuarioRepository.find({
       relations: {
         pedido: true,
+        estabelecimento: true,
       },
     });
   }
@@ -37,6 +39,7 @@ export class UsuarioService {
       },
       relations: {
         pedido: true,
+        estabelecimento: true,
       },
     });
 

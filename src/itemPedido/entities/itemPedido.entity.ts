@@ -22,7 +22,7 @@ export class ItemPedido {
   @ApiProperty({ type: () => Pedido })
   pedido: Pedido;
 
-  @ManyToOne(() => Produto, (produto) => produto.itens)
+  @ManyToOne(() => Produto, (produto) => produto.itemPedido)
   @ApiProperty({ type: () => Produto })
   produto: Produto;
 }

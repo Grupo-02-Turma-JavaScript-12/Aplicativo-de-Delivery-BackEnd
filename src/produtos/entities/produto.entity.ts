@@ -70,5 +70,5 @@ export class Produto {
 
   @OneToMany(() => ItemPedido, (item) => item.produto)
   @ApiProperty({ type: () => [ItemPedido] })
-  itens: ItemPedido[];
+  itemPedido: ItemPedido[];
 }
