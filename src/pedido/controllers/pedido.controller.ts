@@ -56,6 +56,7 @@ export class PedidoController {
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.pedidoService.delete(id);
   }
+
   @UseGuards(JwtAuthGuard)
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)

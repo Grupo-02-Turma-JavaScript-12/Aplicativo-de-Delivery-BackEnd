@@ -15,14 +15,22 @@ export class ProdutoService {
 
   async findAll(): Promise<Produto[]> {
     return await this.produtoRepository.find({
-      relations: { categoria: true, itemPedido: true, estabelecimento: true },
+      relations: {
+        categoria: true,
+        itemPedido: true,
+        estabelecimento: { usuario: true },
+      },
     });
   }
 
   async findById(id: number): Promise<Produto> {
     const produto = await this.produtoRepository.findOne({
       where: { id },
-      relations: { categoria: true, itemPedido: true, estabelecimento: true },
+      relations: {
+        categoria: true,
+        itemPedido: true,
+        estabelecimento: { usuario: true },
+      },
     });
 
     if (!produto) {
@@ -34,7 +42,11 @@ export class ProdutoService {
   async findByName(nome: string): Promise<Produto[]> {
     return await this.produtoRepository.find({
       where: { nome: ILike(`%${nome}%`) },
-      relations: { categoria: true, itemPedido: true, estabelecimento: true },
+      relations: {
+        categoria: true,
+        itemPedido: true,
+        estabelecimento: { usuario: true },
+      },
     });
   }
 
@@ -59,9 +71,11 @@ export class ProdutoService {
   async update(produto: Produto, userLogado: UsuarioToken): Promise<Produto> {
     const existente = await this.findById(produto.id);
 
+    // ✅ VERIFICAÇÃO SEGURA PARA EVITAR ERRO
     if (
       userLogado.role !== TipoUsuario.ADM &&
-      existente.estabelecimento.usuario.id !== userLogado.userId
+      (!existente.estabelecimento.usuario ||
+        existente.estabelecimento.usuario.id !== userLogado.userId)
     ) {
       throw new HttpException(
         'Você só pode atualizar produtos do seu próprio estabelecimento!',
