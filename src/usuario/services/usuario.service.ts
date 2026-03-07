@@ -17,7 +17,7 @@ export class UsuarioService {
         usuario: usuario,
       },
       relations: {
-        pedido: true,
+        pedido: { estabelecimento: true, itensPedido: { produto: true } },
         estabelecimento: true,
       },
     });
@@ -26,7 +26,7 @@ export class UsuarioService {
   async findAll(): Promise<Usuario[]> {
     return await this.usuarioRepository.find({
       relations: {
-        pedido: true,
+        pedido: { estabelecimento: true, itensPedido: { produto: true } },
         estabelecimento: true,
       },
     });
@@ -38,7 +38,7 @@ export class UsuarioService {
         id,
       },
       relations: {
-        pedido: true,
+        pedido: { estabelecimento: true, itensPedido: { produto: true } },
         estabelecimento: true,
       },
     });
