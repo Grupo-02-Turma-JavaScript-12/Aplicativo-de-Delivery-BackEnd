@@ -42,19 +42,37 @@ export class ProdutoService {
     return await this.produtoRepository.save(produto);
   }
 
+  // async update(produto: Produto, userLogado: UsuarioToken): Promise<Produto> {
+  //   const busca = await this.findById(produto.id);
+
+  //   if (
+  //     userLogado.role !== TipoUsuario.ADM &&
+  //     busca.estabelecimento.usuario.id !== userLogado.userId
+  //   ) {
+  //     throw new HttpException(
+  //       'Você só pode atualizar produtos do seu próprio estabelecimento!',
+  //       HttpStatus.FORBIDDEN,
+  //     );
+  //   }
+  //   return await this.produtoRepository.save(produto);
+  // }
   async update(produto: Produto, userLogado: UsuarioToken): Promise<Produto> {
-    const busca = await this.findById(produto.id);
+    const existente = await this.findById(produto.id);
 
     if (
       userLogado.role !== TipoUsuario.ADM &&
-      busca.estabelecimento.usuario.id !== userLogado.userId
+      existente.estabelecimento.usuario.id !== userLogado.userId
     ) {
       throw new HttpException(
         'Você só pode atualizar produtos do seu próprio estabelecimento!',
         HttpStatus.FORBIDDEN,
       );
     }
-    return await this.produtoRepository.save(produto);
+
+    // Atualiza os campos do produto existente
+    Object.assign(existente, produto);
+
+    return await this.produtoRepository.save(existente);
   }
 
   async delete(id: number, userLogado: UsuarioToken): Promise<DeleteResult> {
