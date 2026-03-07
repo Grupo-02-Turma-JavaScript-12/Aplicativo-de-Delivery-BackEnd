@@ -17,7 +17,7 @@ export class PedidoService {
       relations: {
         usuario: true,
         estabelecimento: true,
-        itensPedido: true,
+        itensPedido: { produto: true },
       },
       order: {
         data_pedido: 'DESC',
@@ -36,7 +36,7 @@ export class PedidoService {
       relations: {
         usuario: true,
         estabelecimento: true,
-        itensPedido: true,
+        itensPedido: { produto: true },
       },
       order: {
         data_pedido: 'DESC',
@@ -78,7 +78,7 @@ export class PedidoService {
       relations: {
         usuario: true,
         estabelecimento: true,
-        itensPedido: true,
+        itensPedido: { produto: true },
       },
     });
     if (!pedido)
